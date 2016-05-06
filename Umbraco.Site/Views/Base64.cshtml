@@ -1,0 +1,28 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+}
+
+<html>
+    <body>
+        @{
+            if (CurrentPage.HasValue("base64Media"))
+            {
+                var dynamicMediaItem = Umbraco.Media(CurrentPage.base64Media);
+                if (dynamicMediaItem.ContentType.Alias == "base64Image")
+                {
+                    var imageReference = string.Empty;
+                    if (dynamicMediaItem.HasProperty("base64EncodedImage") && string.IsNullOrEmpty(dynamicMediaItem.base64EncodedImage) == false)
+                    {
+                        imageReference = dynamicMediaItem.base64EncodedImage;
+                    }
+                    else if (dynamicMediaItem.HasProperty("umbracoFile") && string.IsNullOrEmpty(dynamicMediaItem.umbracoFile) == false)
+                    {
+                        imageReference = dynamicMediaItem.umbracoFile;
+                    }
+                    <img src="@imageReference" alt="@dynamicMediaItem.Name" />
+                }
+            }
+        }
+    </body>
+</html>

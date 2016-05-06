@@ -18,7 +18,7 @@ namespace TriToe.EncodeBase64
         {
             foreach (var mediaItem in e.SavedEntities)
             {
-                if (mediaItem.ContentType.Alias == "triToeBase64Image" && mediaItem.HasProperty("triToeBase64EncodedImage") && mediaItem.HasProperty("umbracoFile"))
+                if (mediaItem.ContentType.Alias == "base64Image" && mediaItem.HasProperty("base64EncodedImage") && mediaItem.HasProperty("umbracoFile"))
                 {
                     // Check that image is less than 75k. It's a bad idea to base64 encode big images.
                     var umbracoBytes = mediaItem.GetValue<int>("umbracoBytes");
@@ -45,13 +45,13 @@ namespace TriToe.EncodeBase64
                             }
                         }
 
-                        if (string.IsNullOrEmpty(base64) && mediaItem.GetValue("triToeBase64EncodedImage") != null)
+                        if (string.IsNullOrEmpty(base64) && mediaItem.GetValue("base64EncodedImage") != null)
                         {
-                            mediaItem.SetValue("triToeBase64EncodedImage", null);
+                            mediaItem.SetValue("base64EncodedImage", null);
                         }
                         else
                         {
-                            mediaItem.SetValue("triToeBase64EncodedImage", base64);
+                            mediaItem.SetValue("base64EncodedImage", base64);
                         }
                     }
                 }
